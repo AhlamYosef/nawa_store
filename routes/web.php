@@ -32,4 +32,3 @@ Route::get('/users',[UserController::class,'index']);
 Route::get('/users/{name}',[UserController::class,'show']);
 
 
-// الكلام هاد يعتبر تعديل 
