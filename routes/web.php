@@ -30,3 +30,6 @@ Route::resource('/admin/products',ProductController::class);
 
 Route::get('/users',[UserController::class,'index']);
 Route::get('/users/{name}',[UserController::class,'show']);
+
+
+// الكلام هاد يعتبر تعديل 
