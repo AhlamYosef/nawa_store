@@ -31,7 +31,8 @@ class ProductController extends Controller
         ->select([
             'products.*',
             'catecories.name as category_name',
-        ])->get();
+        ])
+        ->get();
         return view('admin.products.index',[
             'title'=> 'products List',
             'products'=> $products,
@@ -71,7 +72,7 @@ class ProductController extends Controller
             'price'=> 'required|numeric|min:0',
             'compare_price'=> 'nullable|numeric|min:0|gt:price',
             'image'=> 'nullable|image|dimensions:min_width=400,min_height=300|max:1024',//kb
-
+            'status' => 'required|in:active,draft,archived',
         ];
         $request->validate($rules);
 
@@ -84,7 +85,9 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         // $product->image = $request->input('image');
         $product->compare_price = $request->input('compare_price');
+        $product->status = $request->input('status','active');
         $product->save();
+
         return redirect()
         ->route('products.index')
         ->with('auccess',"Product({$product->name})created") ;//GET
@@ -139,6 +142,7 @@ class ProductController extends Controller
             'price'=> 'required|numeric|min:0',
             'compare_price'=> 'nullable|numeric|min:0|gt:price',
             'image'=> 'nullable|image|dimensions:min_width=400,min_height=300|max:1024',//kb
+            'status' => 'required|in:active,draft,archived',
 
         ];
         $request->validate($rules);
@@ -152,7 +156,9 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         // $product->image = $request->input('image');
         $product->compare_price = $request->input('compare_price');
+        $product->status = $request->input('status','active');
         $product->save();
+
         return redirect()->route('products.index')//GET
         ->with('auccess',"Product({$product->name})update") ;//GET
 
